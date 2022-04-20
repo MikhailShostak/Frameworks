@@ -1,0 +1,33 @@
+Type: Class
+Attributes:
+  - DefaultMove
+Functions:
+  - Name: Load
+  - Name: Load
+    InputParameters:
+      - Name: Directory
+        Type: System.Path
+  - Name: Unload
+Graphs:
+  Function.Load:
+    Nodes:
+      - ID: Input
+        Name: Input
+      - ID: Output
+        Name: Output
+  Function.Unload:
+    Nodes:
+      - ID: Input
+        Name: Input
+      - ID: Output
+        Name: Output
+Namespace: System
+Properties:
+  - Attributes:
+      - Serialize
+    Name: Root
+    Type: System.Path
+  - Name: Extensions
+    Type: Array<Extension<InterfaceType>>
+TemplateTypes:
+  - InterfaceType
