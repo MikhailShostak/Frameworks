@@ -1,4 +1,9 @@
 Targets:
+  - Name: SystemExtensions
+    Type: Interface
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Utils
   - Name: Utils
     Type: Interface
     PackageVersion: 1.0.0
