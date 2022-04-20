@@ -1,0 +1,17 @@
+Targets:
+  - Name: Utils
+    Type: Interface
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - ThirdParty
+  - Name: ThirdParty
+    Type: Interface
+    PackageVersion: 1.0.0
+    Dependencies:
+      - boost/1.78.0
+      - fmt/8.0.1
+      - hlslpp/3.1
+      - portable-file-dialogs/0.1.0
+      - range-v3/0.11.0
+      - utfcpp/3.2.1
+      - yaml-cpp/0.7.0
