@@ -1,0 +1,8 @@
+Type: Library
+PrecompileLocalHeaders: true
+PublicDefines:
+  PUBLIC_API_EXPORT: BOOST_SYMBOL_EXPORT
+PublicDependencies:
+  - Name: ThirdParty
+PublicIncludes:
+  - ThirdParty.hpp

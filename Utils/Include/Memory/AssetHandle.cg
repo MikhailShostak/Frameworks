@@ -1,0 +1,12 @@
+Type: Class
+Attributes:
+  - Structure
+Properties:
+  - Attributes:
+      - Serialize
+    Name: Type
+    Type: String
+  - Attributes:
+      - Serialize
+    Name: Values
+    Type: Serialization.Data

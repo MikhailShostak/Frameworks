@@ -1,0 +1,61 @@
+Type: Interface
+PublicDependencies:
+    - Name: boost/1.83.0
+    - Name: fmt/10.1.0
+    - Name: hlslpp/3.2.2
+    - Name: portable-file-dialogs/0.1.0
+    - Name: range-v3/0.12.0
+    - Name: utfcpp/3.2.3
+    - Name: yaml-cpp/0.8.0
+PublicDefines:
+    HLSLPP_FEATURE_TRANSFORM: 1
+PublicIncludes:
+    - algorithm
+    - any
+    - bitset
+    - charconv
+    - deque
+    - filesystem
+    - fstream
+    - functional
+    - iomanip
+    - ios
+    - iosfwd
+    - iostream
+    - istream
+    - iterator
+    - limits
+    - list
+    - map
+    - memory
+    - mutex
+    - new
+    - optional
+    - ostream
+    - queue
+    - random
+    - set
+    - sstream
+    - stack
+    - streambuf
+    - string
+    - tuple
+    - type_traits
+    - typeinfo
+    - unordered_map
+    - unordered_set
+    - utility
+    - variant
+    - vector
+    - boost/predef.h
+    - boost/beast.hpp
+    - boost/process.hpp
+    - boost/algorithm/string.hpp
+    - boost/range/algorithm_ext/erase.hpp
+    - hlsl++.h
+    - fmt/format.h
+    - fmt/ranges.h
+    - fmt/chrono.h
+    - fmt/ostream.h
+    - range/v3/all.hpp
+    - yaml-cpp/yaml.h
