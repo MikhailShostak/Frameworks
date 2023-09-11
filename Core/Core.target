@@ -1,0 +1,6 @@
+Type: Library
+PrecompileLocalHeaders: true
+PublicIncludes:
+  - Utils.hpp
+PublicDependencies:
+  - Name: Utils
