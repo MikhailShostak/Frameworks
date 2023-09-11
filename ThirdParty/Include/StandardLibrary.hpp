@@ -18,6 +18,7 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <new>
 #include <optional>
 #include <ostream>
