@@ -1,0 +1,32 @@
+Type: Class
+Attributes:
+  - DefaultConstructor
+Namespace: UI2
+Properties:
+  - Name: TextID
+    Type: String
+  - Attributes:
+      - Serialize
+    Name: Position
+    Type: Int2
+  - Attributes:
+      - Serialize
+    Name: Size
+    Type: Int2
+  - Attributes:
+    - Serialize
+    Name: Visible
+    Type: bool
+  - Name: Views
+    Type: Array<SharedReference<UI2.View>>
+Functions:
+  - Name: Draw
+    InputParameters:
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true
+  - Name: OnDraw
+    InputParameters:
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true

@@ -1,0 +1,23 @@
+Type: Class
+BaseType: Graphics.RenderingSubsystem
+Namespace: UI2
+Properties:
+  - Name: FPS
+    Type: int32_t
+  - Name: Frames
+    Type: int32_t
+  - Name: Time
+    Type: float
+  - Name: RootView
+    Type: SharedReference<UI2::View>
+    Attributes:
+      - Serialize
+Functions:
+  - Name: RenderScene
+    InputParameters:
+      - Name: Window
+        Type: Graphics.Window
+        Writable: true
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true

@@ -1,0 +1,9 @@
+Type: Library
+PrecompileLocalHeaders: true
+PublicIncludes:
+  - imgui.h
+  - misc/cpp/imgui_stdlib.h
+  - Graphics.hpp
+PublicDependencies:
+  - Name: Graphics
+  - Name: imgui/1.89.8-docking
