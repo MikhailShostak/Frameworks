@@ -1,0 +1,47 @@
+Type: Class
+Attributes:
+  - Structure
+  - DefaultConstructor
+  - Destructor
+  - Move
+Functions:
+  - InputParameters:
+      - Copy: false
+        Name: Resolution
+        Type: Int2
+        Writable: false
+    Name: Resize
+  - Name: Swap
+  - Name: GetRenderBuffer
+    OutputParameters:
+      - Copy: false
+        Name: RenderBuffer
+        Type: Graphics.RenderBuffer
+        Writable: false
+Graphs:
+  Function.GetRenderBuffer:
+    Nodes:
+      - ID: Input
+        Name: Input
+      - ID: Output
+        Name: Output
+  Function.Resize:
+    Nodes:
+      - ID: Input
+        Name: Input
+      - ID: Output
+        Name: Output
+  Function.Swap:
+    Nodes:
+      - ID: Input
+        Name: Input
+      - ID: Output
+        Name: Output
+Namespace: Graphics
+Properties:
+  - Attributes:
+      - Incomplete
+    Name: Data
+    Type: InplaceStorage<SwapChainPrivateData, 8, 8>
+  - Name: RenderBuffer
+    Type: Graphics.RenderBuffer

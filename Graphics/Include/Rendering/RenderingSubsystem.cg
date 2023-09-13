@@ -1,0 +1,17 @@
+Type: Class
+BaseType: Graphics.SceneSubsystem
+Namespace: Graphics
+Functions:
+  - Name: UpdateScene
+    InputParameters:
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true
+  - Name: RenderScene
+    InputParameters:
+      - Name: Window
+        Type: Graphics.Window
+        Writable: true
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true

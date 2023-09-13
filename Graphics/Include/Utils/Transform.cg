@@ -1,0 +1,44 @@
+Type: Class
+Attributes:
+  - Structure
+  - DefaultConstructor
+Functions:
+  - Name: GetMatrix
+    OutputParameters:
+      - Copy: false
+        Name: Transform
+        Type: Matrix4
+        Writable: false
+  - Name: GetInverseMatrix
+    OutputParameters:
+      - Copy: false
+        Name: Transform
+        Type: Matrix4
+        Writable: false
+Graphs:
+  Function.GetInverseMatrix:
+    Nodes:
+      - ID: Input
+        Name: Input
+      - ID: Output
+        Name: Output
+  Function.GetMatrix:
+    Nodes:
+      - ID: Input
+        Name: Input
+      - ID: Output
+        Name: Output
+Namespace: Graphics
+Properties:
+  - Attributes:
+      - Serialize
+    Name: Position
+    Type: Float3
+  - Attributes:
+      - Serialize
+    Name: Rotation
+    Type: Float3
+  - Attributes:
+      - Serialize
+    Name: Scale
+    Type: Float3

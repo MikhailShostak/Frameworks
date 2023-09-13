@@ -1,0 +1,35 @@
+Type: Class
+Namespace: Graphics
+Functions:
+  - Name: Load
+  - Name: Unload
+  - Name: Update
+Properties:
+  - Name: Scene
+    Type: SharedReference<Graphics.Scene>
+    Attributes:
+      - Serialize
+  - Name: Title
+    Type: String
+    Attributes:
+      - Serialize
+  - Name: Position
+    Type: Int2
+    Attributes:
+      - Serialize
+  - Name: Size
+    Type: Int2
+    Attributes:
+      - Serialize
+  - Name: WindowMode
+    Type: Graphics.WindowMode
+    Attributes:
+      - Serialize
+  - Name: MousePosition
+    Type: Int2
+  - Name: FrameCounter
+    Type: DateTime.Counter<DateTime.HighResolution.Clock>
+  - Name: DeltaTime
+    Type: DateTime::SecondRatio
+  - Name: RHIContext
+    Type: UniqueReference<Graphics.RHIContext>

@@ -1,0 +1,10 @@
+Type: Class
+BaseType: Core.Subsystem
+Namespace: Graphics
+Functions:
+  - Name: Update
+  - Name: UpdateScene
+    InputParameters:
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true

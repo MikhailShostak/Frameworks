@@ -1,0 +1,24 @@
+Type: Class
+Attributes:
+  - Structure
+  - DefaultConstructor
+  - Destructor
+  - Move
+Namespace: Graphics
+Properties:
+  - Attributes:
+      - Incomplete
+    Name: Data
+    Type: InplaceStorage<TexturePrivateData, 8, 8>
+  - Name: Buffer
+    Type: Array<uint8_t>
+  - Name: Size
+    Type: Int3
+  - Name: Channels
+    Type: uint8_t
+  - Name: Filtration
+    Type: Graphics.TextureFiltration
+  - Name: Wrapping
+    Type: Graphics.TextureWrapping
+  - Name: IsCompiled
+    Type: bool

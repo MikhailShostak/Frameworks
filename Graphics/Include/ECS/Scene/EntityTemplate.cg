@@ -1,0 +1,5 @@
+Type: Class
+BaseType: ECS.Entity
+Namespace: ECS
+Attributes:
+  - Structure

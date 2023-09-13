@@ -1,0 +1,17 @@
+Type: Class
+BaseType: Core.Subsystem
+Namespace: Graphics
+Functions:
+  - Name: Create
+    OutputParameters:
+      - Copy: true
+        Name: Window
+        Type: SharedReference<Graphics.Window>
+        Writable: true
+Properties:
+  - Name: Windows
+    Type: Array<SharedReference<Graphics.Window>>
+  - Name: WindowClass
+    Type: ClassReference<Graphics.Window>
+  - Name: RHIContextClass
+    Type: ClassReference<Graphics.RHIContext>
