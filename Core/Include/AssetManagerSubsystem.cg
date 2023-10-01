@@ -1,0 +1,10 @@
+Type: Class
+BaseType: Core.Subsystem
+Namespace: Core
+Properties:
+  - Name: Folders
+    Type: Array<System.Path>
+    Attributes:
+      - Serialize
+Functions:
+  - Name: Load

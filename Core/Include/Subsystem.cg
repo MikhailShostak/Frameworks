@@ -1,0 +1,11 @@
+Type: Class
+Namespace: Core
+Attributes:
+  - DefaultConstructor
+Functions:
+  - Name: Load
+  - Name: Unload
+  - Name: Update
+Properties:
+  - Name: Enabled
+    Type: bool
