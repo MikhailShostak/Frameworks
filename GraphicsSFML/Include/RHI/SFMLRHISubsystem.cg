@@ -1,0 +1,3 @@
+Type: Class
+BaseType: Graphics.RHISubsystem
+Namespace: Graphics

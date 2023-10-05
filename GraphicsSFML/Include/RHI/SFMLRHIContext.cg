@@ -1,0 +1,3 @@
+Type: Class
+BaseType: Graphics.RHIContext
+Namespace: Graphics

@@ -1,0 +1,15 @@
+Type: Class
+BaseType: Graphics.WindowSubsystem
+Namespace: Graphics
+Attributes:
+  - DefaultConstructor
+Functions:
+  - Name: Load
+  - Name: Unload
+  - Name: Update
+Properties:
+  - Name: Input
+    Type: SharedReference<Input.Subsystem>
+Values:
+  WindowClass: Graphics.SFMLWindow
+  RHIContextClass: Graphics.SFMLRHIContext

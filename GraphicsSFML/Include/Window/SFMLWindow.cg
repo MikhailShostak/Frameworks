@@ -1,0 +1,10 @@
+Type: Class
+BaseType: Graphics.Window
+Namespace: Graphics
+Properties:
+  - Name: Handle
+    Type: sf.RenderWindow
+  - Name: Initialized
+    Type: bool
+  - Name: UnitSize
+    Type: Int2
