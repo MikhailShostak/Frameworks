@@ -1,0 +1,5 @@
+Type: Library
+PublicDependencies:
+  - Name: Graphics
+PublicIncludes:
+  - Graphics.hpp

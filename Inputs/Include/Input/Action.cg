@@ -1,0 +1,13 @@
+Type: Class
+Namespace: Input
+Properties:
+  - Name: Handlers
+    Type: Array<Input.CallbackType>
+Functions:
+  - Name: Trigger
+    InputParameters:
+      - Name: Event
+        Type: Input.Event
+    OutputParameters:
+      - Name: Handled
+        Type: bool

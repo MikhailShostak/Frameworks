@@ -1,0 +1,9 @@
+Type: Enumeration
+Namespace: Input
+Values:
+- Undefined
+- Left
+- Right
+- Middle
+- Extra1
+- Extra2

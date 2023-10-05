@@ -1,0 +1,6 @@
+Type: Enumeration
+Namespace: Input
+Values:
+  - Mouse
+  - Keyboard
+  - Gamepad

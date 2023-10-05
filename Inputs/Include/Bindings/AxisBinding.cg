@@ -1,0 +1,20 @@
+Type: Class
+BaseType: Input.InputBinding
+Namespace: Input
+Properties:
+  - Name: Axis
+    Type: uint8_t
+    Attributes:
+      - Serialize
+  - Name: Scale
+    Type: float
+    Initialization: "1.0f"
+    Attributes:
+      - Serialize
+  - Name: Swizzle
+    Type: Int4
+    Initialization: "0, 1, 2, 3"
+    Attributes:
+      - Serialize
+  - Name: Handled
+    Type: bool

@@ -1,0 +1,3 @@
+Type: Class
+BaseType: Input.ButtonBinding<Input.KeyboardButton>
+Namespace: Input

@@ -1,0 +1,9 @@
+Type: Class
+Attributes:
+  - Structure
+Namespace: Input
+Properties:
+  - Name: ActionBindings
+    Type: Array<Input.ActionBinding>
+    Attributes:
+      - Serialize

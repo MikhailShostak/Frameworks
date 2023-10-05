@@ -1,0 +1,15 @@
+Type: Class
+Attributes:
+  - Structure
+Namespace: Input
+Properties:
+  - Name: Action
+    Type: SharedReference<Input.Action>
+    Attributes:
+      - Serialize
+  - Name: InputBindings
+    Type: Array<SharedReference<Input.InputBinding>>
+    Attributes:
+      - Serialize
+  - Name: Value
+    Type: Float4

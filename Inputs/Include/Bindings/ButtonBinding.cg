@@ -1,0 +1,24 @@
+Type: Class
+BaseType: Input.InputBinding
+Namespace: Input
+TemplateTypes:
+  - ButtonType
+Properties:
+  - Name: Button
+    Type: ButtonType
+    Attributes:
+      - Serialize
+  - Name: Scale
+    Type: float
+    Initialization: "1.0f"
+    Attributes:
+      - Serialize
+  - Name: Swizzle
+    Type: Int4
+    Initialization: "0, 1, 2, 3"
+    Attributes:
+      - Serialize
+  - Name: Pressed
+    Type: bool
+  - Name: Handled
+    Type: bool

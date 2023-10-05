@@ -1,0 +1,20 @@
+Type: Class
+Namespace: Input
+Attributes:
+  - Structure
+Properties:
+  - Name: Window
+    Type: Graphics.Window*
+  - Name: Value
+    Type: Float4
+  - Name: Pressed
+    Type: bool
+Functions:
+  - Name: GetScene
+    Type: Graphics.Scene
+    Constant: true
+    OutputParameters:
+      - Copy: false
+        Name: GetScene
+        Type: Graphics.Scene
+        Writable: true
