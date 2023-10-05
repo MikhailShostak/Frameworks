@@ -1,0 +1,18 @@
+Type: Class
+BaseType: Core.Subsystem
+Namespace: AppFlow
+Functions:
+  - Name: Load
+  - Name: PushWindow
+    InputParameters:
+      - Name: WindowID
+        Type: StringID
+Properties:
+  - Name: Windows
+    Type: Map<StringID, AppFlow.WindowData>
+    Attributes:
+      - Serialize
+  - Name: StartupWindows
+    Type: Array<StringID>
+    Attributes:
+      - Serialize

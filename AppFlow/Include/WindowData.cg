@@ -1,0 +1,25 @@
+Type: Class
+Attributes:
+  - Structure
+Namespace: AppFlow
+Properties:
+  - Name: Scene
+    Type: Map<String, String>
+    Attributes:
+      - Serialize
+  - Name: Title
+    Type: String
+    Attributes:
+      - Serialize
+  - Name: Position
+    Type: Int2
+    Attributes:
+      - Serialize
+  - Name: Size
+    Type: Int2
+    Attributes:
+      - Serialize
+  - Name: Mode
+    Type: Graphics.WindowMode
+    Attributes:
+      - Serialize
