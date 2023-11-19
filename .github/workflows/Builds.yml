@@ -1,0 +1,112 @@
+name: Builds
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
+      fail-fast: false
+
+      matrix:
+        os: [windows-latest]
+        configuration: [Release, Debug]
+        linkage: [Static, Shared]
+        include:
+          - os: windows-latest
+            setup_command: ../BuildTools/Setup.bat
+            run_command: ../BuildTools/Run.bat
+            tools_command: ../BuildTools/Tools.bat
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up MSVC 2022
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+        toolset: 14.3
+
+    - name: Clone Build Tools
+      run: git clone --branch dev https://github.com/MikhailShostak/BuildTools.git ../BuildTools
+    - if: matrix.os != 'windows-latest'
+      name: Make Script Executable (Unix)
+      run: chmod +x ../BuildTools/*.sh
+
+    - name: Cache Python Packages
+      id: python-packages
+      uses: actions/cache@v3
+      with:
+        path: ../BuildTools/.venv
+        key: ${{ matrix.os }}-python-packages-${{ hashFiles('BuildTools/requirements.txt') }}
+    - if: ${{ steps.python-packages.outputs.cache-hit != 'true' }}
+      name: Setup Environment
+      run: ${{ matrix.setup_command }}
+
+    - name: Cache Conan Packages
+      id: conan-packages
+      uses: actions/cache@v3
+      with:
+        path: ../BuildTools/.conan
+        key: ${{ matrix.os }}-${{ matrix.cc }}-${{ matrix.configuration }}-conan-packages-${{ hashFiles('*.project') }}
+    - if: ${{ steps.conan-packages.outputs.cache-hit != 'true' }}
+      name: Setup Conan Profile
+      run: ${{ matrix.run_command }} conan profile detect
+    - name: Update Conan profile to use C++20
+      run: (Get-Content ../BuildTools/.conan/profiles/default) -replace 'compiler.cppstd=14', 'compiler.cppstd=20' | Set-Content ../BuildTools/.conan/profiles/default
+
+    - name: Add Artifactory
+      env:
+        URL: ${{ secrets.ARTIFACTORY_ADDRESS }}
+      run: ${{ matrix.run_command }} conan remote add Artifactory "%URL%"
+
+    - name: Login Artifactory
+      env:
+        USER: ${{ secrets.ARTIFACTORY_USER }}
+        PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+      run: ${{ matrix.run_command }} conan remote login --password "%PASSWORD%" Artifactory "%USER%"
+
+    - name: Package ThirdParty
+      run: ${{ matrix.tools_command }} Package --Target=ThirdParty --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package Utils
+      run: ${{ matrix.tools_command }} Package --Target=Utils --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package SystemExtensions
+      run: ${{ matrix.tools_command }} Package --Target=SystemExtensions --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package Core
+      run: ${{ matrix.tools_command }} Package --Target=Core --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package Animations
+      run: ${{ matrix.tools_command }} Package --Target=Animations --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package Graphics
+      run: ${{ matrix.tools_command }} Package --Target=Graphics --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package Inputs
+      run: ${{ matrix.tools_command }} Package --Target=Inputs --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package UI
+      run: ${{ matrix.tools_command }} Package --Target=UI --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package GraphicsSFML
+      run: ${{ matrix.tools_command }} Package --Target=GraphicsSFML --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package AppFlow
+      run: ${{ matrix.tools_command }} Package --Target=AppFlow --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package Experimental
+      run: ${{ matrix.tools_command }} Package --Target=Experimental --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package Physics
+      run: ${{ matrix.tools_command }} Package --Target=Physics --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Package Gameplay
+      run: ${{ matrix.tools_command }} Package --Target=Gameplay --Configuration=${{ matrix.configuration }} --Linkage=${{ matrix.linkage }} --Generator=Ninja --Deploy=Artifactory
+
+    - name: Deploy Dependencies
+      run: ${{ matrix.run_command }} conan upload -r Artifactory * -c
