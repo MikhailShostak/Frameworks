@@ -1,31 +1,6 @@
 #include <imgui.h>
 
-namespace MapUtils
-{
-
-template<typename KeyType, typename ValueType>
-auto &FindOrAdd(Map<KeyType, ValueType> &Map, const KeyType &Key)
-{
-    auto It = Map.find(Key);
-    if (It == Map.end())
-    {
-        It = Map.insert({ Key, ValueType() }).first;
-    }
-    return It->second;
-}
-
-template<typename KeyType, typename ValueType>
-const auto &FindOrAdd(const Map<KeyType, ValueType> &Map, const KeyType &Key)
-{
-    auto It = Map.find(Key);
-    if (It == Map.end())
-    {
-        It = Map.insert({ Key, ValueType() }).first;
-    }
-    return It->second;
-}
-
-}
+#include <UI.hpp>
 
 Input::GamepadButton RemapInput(uint64_t Button)
 {
@@ -157,8 +132,7 @@ Input::KeyboardButton RemapInput(sf::Keyboard::Key Key)
 namespace Graphics
 {
 
-sf::Clock Clock;
-sf::Time DeltaTime;
+SharedReference<UI2::Subsystem> UI;
 
 void UpdateScreenSurface(Graphics::SFMLWindow &Window)
 {
@@ -176,6 +150,7 @@ SFMLSubsystem::SFMLSubsystem()
 void SFMLSubsystem::Load()
 {
     Input = Core::FindSubsystem<Input::Subsystem>();
+    UI = Core::FindSubsystem<UI2::Subsystem>();
 }
 
 bool HandleInputEvent(Input::Subsystem &Subsystem, Graphics::Window &Window, const sf::Event &Event)
@@ -227,10 +202,6 @@ bool HandleInputEvent(Input::Subsystem &Subsystem, Graphics::Window &Window, con
 
 void SFMLSubsystem::Update()
 {
-    static bool RenderImGui = false;
-
-    DeltaTime = Clock.restart();
-
     for (auto &Window : Windows)
     {
         auto SFMLWindow = StaticCast<Graphics::SFMLWindow>(Window);
@@ -239,7 +210,13 @@ void SFMLSubsystem::Update()
         {
             SFMLWindow->Initialized = true;
             SFMLWindow->UnitSize = 100.0f;
-            SFMLWindow->Handle.create(sf::VideoMode(Window->Size[0], Window->Size[1]), Window->Title.data());
+            
+            sf::ContextSettings settings;
+            settings.depthBits = 24; // Choose an appropriate depth buffer size
+            settings.stencilBits = 8; // Optional
+            //settings.antialiasingLevel = 2; // Optional
+
+            SFMLWindow->Handle.create(sf::VideoMode(Window->Size[0], Window->Size[1]), Window->Title.data(), sf::Style::Default, settings);
             UpdateScreenSurface(*SFMLWindow);
             ImGui::SFML::Init(SFMLWindow->Handle);
 
@@ -270,6 +247,12 @@ void SFMLSubsystem::Update()
             }
 
             SFMLWindow->DeltaTime = SFMLWindow->FrameCounter.CountAs<DateTime::SecondRatio>();
+            UI->PreUpdate(*SFMLWindow, *Window->Scene);
+            if (UI->FontsDirty)
+            {
+                UI->FontsDirty = false;
+                ImGui::SFML::UpdateFontTexture();
+            }
             ImGui::SFML::Update(SFMLWindow->Handle, sf::seconds(SFMLWindow->DeltaTime.count()));
             if (Window->Scene)
             {

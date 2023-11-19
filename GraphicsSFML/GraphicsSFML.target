@@ -2,9 +2,9 @@ Type: Library
 PrecompileLocalHeaders: true
 PublicDependencies:
   - Name: Graphics
-  - Name: InputSubsystem
+  - Name: Inputs
 PrivateDependencies:
-  - Name: stb/cci.20220909
+  - Name: UI
   - Name: imgui/1.89.8-docking
   - Name: sfml/2.6.0
 PublicIncludes:
@@ -12,4 +12,4 @@ PublicIncludes:
   - SFML/Graphics.hpp
   - ThirdParty/imgui-SFML.h
   - Graphics.hpp
-  - InputSubsystem.hpp
+  - Inputs.hpp
