@@ -12,7 +12,17 @@ Properties:
     Type: SharedReference<UI2::View>
     Attributes:
       - Serialize
+  - Name: FontsDirty
+    Type: bool
 Functions:
+  - Name: PreUpdate
+    InputParameters:
+      - Name: Window
+        Type: Graphics.Window
+        Writable: true
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true
   - Name: RenderScene
     InputParameters:
       - Name: Window
@@ -21,3 +31,26 @@ Functions:
       - Name: Scene
         Type: Graphics.Scene
         Writable: true
+  - Name: PushUIFont
+  - Name: PushMonospacedFont
+  - Name: PopFont
+  - Name: LoadFont
+    InputParameters:
+      - Name: Path
+        Type: System::Path
+        Writable: false
+      - Name: Size
+        Type: fpixel_t
+        Copy: true
+        Writable: true
+      - Name: Config
+        Type: ImFontConfig*
+        Copy: true
+        Writable: true
+      - Name: GlyphRange
+        Type: uint16_t*
+        Copy: true
+        Writable: false
+      - Name: Callback
+        Type: std.function<void(ImFont*)>
+        Writable: false
