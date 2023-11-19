@@ -2,50 +2,44 @@
 
 namespace ECS
 {
-
-
 struct PUBLIC_API_EXPORT Entity
 {
-    using EntityID = entt::entity;
-
+    using This = Entity;
     Graphics::Scene* Scene {};
-    EntityID ID {};
+    ECS::EntityID ID {};
 
-    Entity() = default;
-    Entity(const Entity& entity) = default;
-    Entity& operator =(const Entity& entity) = default;
-    Entity(Entity && entity) = default;
-    Entity& operator =(Entity && entity) = default;
-
-    Entity(Graphics::Scene* Scene, EntityID ID):
-        Scene(Scene),
-        ID(ID)
+    template<typename T>
+    void Serialize(T &&data)
     {
+    }
 
+    void Initialize()
+    {
     }
 
     template<typename Type>
-    Type& AddComponent() { return Scene->Registry.emplace<Type>(ID); }
+    Type& AddComponent() const { return Scene->Registry.emplace<Type>(ID); }
 
     template<typename ...Types>
-    std::tuple<Types&...> AddComponents() { return { Scene->Registry.emplace<Types>(ID)... }; }
+    std::tuple<Types&...> AddComponents() const { return { Scene->Registry.emplace<Types>(ID)... }; }
 
     template<typename Type>
-    Type& GetComponent() { return Scene->Registry.get<Type>(ID); }
+    Type& GetComponent() const { return Scene->Registry.get<Type>(ID); }
 
     template<typename ...Types>
-    std::tuple<Types&...> GetComponents() { return Scene->Registry.get<Types...>(ID); }
+    std::tuple<Types&...> GetComponents() const { return Scene->Registry.get<Types...>(ID); }
 
     template<typename Type>
-    Type* FindComponent() { return Scene->Registry.try_get<Type>(ID); }
+    Type* FindComponent() const { return Scene->Registry.try_get<Type>(ID); }
 
     template<typename ...Types>
-    std::tuple<Types*...> FindComponents() { return Scene->Registry.try_get<Types...>(ID); }
+    std::tuple<Types*...> FindComponents() const { return Scene->Registry.try_get<Types...>(ID); }
+
+    void Destroy() const { Scene->Registry.destroy(ID); }
 
     explicit operator bool() const
     {
         return Scene && Scene->Registry.valid(ID);
     }
 };
-
 }

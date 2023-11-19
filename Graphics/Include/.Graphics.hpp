@@ -2,6 +2,8 @@
 
 #include "GraphicsForwardDeclaration.hpp"
 
+#include "ECS/.ECS.hpp"
+
 #include "Texture/TextureFiltration.hpp"
 #include "Texture/TextureWrapping.hpp"
 #include "Texture/Texture.hpp"
@@ -28,8 +30,6 @@
 #include "Utils/GraphicsContext.hpp"
 
 #include "RHI/RHIContext.hpp"
-#include "Rendering/Scene.hpp"
-#include "Rendering/SceneSubsystem.hpp"
 #include "Rendering/RenderingSubsystem.hpp"
 #include "Window/WindowMode.hpp"
 #include "Window/Window.hpp"

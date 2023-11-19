@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ECS
+/*namespace ECS
 {
 
 inline thread_local ECS::Entity g_AllocationEntity;
@@ -21,9 +21,51 @@ struct Constructor<Type, ECS::EntityComponent>
     }
 };
 
+}*/
+
+namespace Memory
+{
+
+PUBLIC_API_EXPORT ECS::Entity &GetParentEntity();
+
+template<typename Type>
+struct PUBLIC_API_EXPORT Constructor<Type, ECS::EntityComponent>
+{
+    [[nodiscard]] inline static Type *Create()
+    {
+        auto ParentEntity = GetParentEntity();
+        assert(ParentEntity);
+        return &ParentEntity.AddComponent<Type>();
+    }
+};
+
 }
 
 namespace Serialization
+{
+
+template<>
+struct PUBLIC_API_EXPORT ObjectSerializer<ECS::Entity>
+{
+    template<typename DataType, typename ValueType>
+    static void Serialize(DataType&& data, ValueType&& value)
+    {
+        //TODO: Restrict multithreaded allocation.
+        Memory::GetParentEntity() = value;
+        Array<UniqueReference<ECS::EntityComponent>> Components;
+        data["Components"] & Components;
+        for (auto& c : Components)
+        {
+            c.release();
+        }
+        value.Serialize(data);
+        Memory::GetParentEntity() = {};
+    }
+};
+
+}
+
+/*namespace Serialization
 {
 
 template<>
@@ -69,9 +111,9 @@ struct ObjectSerializer<ECS::Entity>
             persistentComponent.Components.push_back(c.release());
         }
     }
-};
+};*/
 
-template<>
+/*template<>
 struct ObjectSerializer<EScene>
 {
     template<typename DataType, typename ValueType>
@@ -108,4 +150,4 @@ struct ObjectSerializer<EScene>
     }
 };
 
-}
+}*/

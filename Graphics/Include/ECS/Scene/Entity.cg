@@ -2,3 +2,8 @@ Type: Class
 Namespace: ECS
 Attributes:
   - Structure
+Properties:
+  - Name: Scene
+    Type: Graphics.Scene*
+  - Name: ID
+    Type: ECS.EntityID

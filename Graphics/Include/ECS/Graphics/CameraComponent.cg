@@ -1,8 +1,0 @@
-Type: Class
-BaseType: ECS.EntityComponent
-Namespace: ECS
-Properties:
-  - Attributes:
-      - Serialize
-    Name: Camera
-    Type: Graphics.Camera

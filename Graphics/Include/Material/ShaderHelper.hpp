@@ -17,8 +17,9 @@ struct PUBLIC_API_EXPORT ShaderMetatype
     const char* Metatype = nullptr;
     const char* Name = nullptr;
 
+    size_t TypeID = 0;
     size_t DataSize = 0;
-    void *getDataPointer() { return reinterpret_cast<void*>(reinterpret_cast<size_t>(this) + sizeof(ShaderMetatype)); }
+    void *DataPointer = 0;
         
     template<typename ReturnType>
     ReturnType Register(const char *type, const char *name, const char *reg = nullptr)
@@ -55,6 +56,20 @@ struct PUBLIC_API_EXPORT ShaderMetatype
     }
 
     InplaceStorage<struct ShaderHelperPrivateData, 8, 8> Data;
+};
+
+template<typename Type>
+struct PUBLIC_API_EXPORT ShaderVariable : public ShaderMetatype
+{
+    Type Value;
+
+    ShaderVariable(const char *Name)
+    {
+        this->Name = Name;
+        TypeID = typeid(Type).hash_code();
+        DataSize = sizeof(Type);
+        DataPointer = &Value;
+    }
 };
 
 template<typename T>

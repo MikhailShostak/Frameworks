@@ -1,7 +1,7 @@
 namespace ECS
 {
 
-void Load(EScene &scene)
+/*void Load(EScene &scene)
 {
     for (auto& system : scene.Systems)
     {
@@ -23,6 +23,6 @@ void Update(EScene& scene)
     {
         system->OnUpdate(scene);
     }
-}
+}*/
 
 }

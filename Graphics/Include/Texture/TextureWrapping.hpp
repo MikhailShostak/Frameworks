@@ -25,7 +25,7 @@ struct Serializer<InputValue, Graphics::TextureWrapping>
     {
         if (data.m_Storage.IsScalar())
         {
-            const auto &valueName = data.m_Storage.template as<std::string>();
+            const auto &valueName = data.m_Storage.template as<String>();
             if (valueName == "TiledWrapping") { value = Graphics::TextureWrapping::TiledWrapping; return; }
             if (valueName == "HorizontalTiledWrapping") { value = Graphics::TextureWrapping::HorizontalTiledWrapping; return; }
             if (valueName == "VerticalTiledWrapping") { value = Graphics::TextureWrapping::VerticalTiledWrapping; return; }

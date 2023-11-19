@@ -21,7 +21,7 @@ struct Serializer<InputValue, Graphics::TextureFiltration>
     {
         if (data.m_Storage.IsScalar())
         {
-            const auto &valueName = data.m_Storage.template as<std::string>();
+            const auto &valueName = data.m_Storage.template as<String>();
             if (valueName == "Nearest") { value = Graphics::TextureFiltration::Nearest; return; }
             if (valueName == "Bilinear") { value = Graphics::TextureFiltration::Bilinear; return; }
             if (valueName == "Trilinear") { value = Graphics::TextureFiltration::Trilinear; return; }

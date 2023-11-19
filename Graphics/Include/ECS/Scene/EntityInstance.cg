@@ -1,0 +1,17 @@
+Type: Class
+Namespace: ECS
+Attributes:
+  - Structure
+Properties:
+  - Name: Name
+    Type: StringID
+    Attributes:
+      - Serialize
+  - Name: Definition
+    Type: SharedReference<ECS.EntityDefinition>
+    Attributes:
+      - Serialize
+  - Name: Values
+    Type: Serialization.Data
+    Attributes:
+      - Serialize

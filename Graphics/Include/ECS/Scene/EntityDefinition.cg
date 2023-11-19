@@ -1,0 +1,9 @@
+Type: Class
+Namespace: ECS
+Attributes:
+  - Structure
+Properties:
+  - Name: InstanceData
+    Type: Serialization.Data
+    Attributes:
+      - Serialize

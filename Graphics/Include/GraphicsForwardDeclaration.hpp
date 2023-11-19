@@ -3,6 +3,8 @@
 namespace Graphics
 {
 
+struct Scene;
+
 struct Window;
 
 struct DrawBatchPrivateData;
@@ -10,6 +12,7 @@ struct GraphicsContextPrivateData;
 struct MeshPrivateData;
 struct PipelineStatePrivateData;
 struct RenderBufferPrivateData;
+struct RenderTargetPrivateData;
 struct ShaderPrivateData;
 struct SwapChainPrivateData;
 struct TexturePrivateData;
