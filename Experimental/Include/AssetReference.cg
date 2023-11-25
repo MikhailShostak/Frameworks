@@ -1,0 +1,26 @@
+Type: Class
+IndirectType: Type
+TemplateTypes:
+  - Type
+Attributes:
+  - Structure
+Properties:
+  - Attributes:
+      - Serialize
+    Name: Path
+    Type: System.Path
+  - Name: Data
+    Type: Type
+Functions:
+  - Name: Load
+    OutputParameters:
+      - Copy: true
+        Name: Result
+        Type: bool
+        Writable: true
+  - Name: Save
+    OutputParameters:
+      - Copy: true
+        Name: Result
+        Type: bool
+        Writable: true

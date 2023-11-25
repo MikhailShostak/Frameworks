@@ -1,0 +1,19 @@
+Type: Class
+Attributes:
+  - Structure
+Namespace: ECS
+Properties:
+  - Attributes:
+      - Serialize
+    Name: Path
+    Type: System.Path
+  - Name: TextureInstance
+    Type: SharedReference<sf.Texture>
+  - Name: Offset
+    Type: Int2
+    Attributes:
+      - Serialize
+  - Name: Size
+    Type: Int2
+    Attributes:
+      - Serialize

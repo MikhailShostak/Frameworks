@@ -1,0 +1,15 @@
+Type: Library
+PublicIncludes:
+  - Utils.hpp
+  - Graphics.hpp
+  - GraphicsSFML.hpp
+  - Inputs.hpp
+  - UI.hpp
+PublicDependencies:
+  - Name: entt/3.12.2
+  - Name: utils/0.0.1
+  - Name: inputs/0.0.1
+  - Name: graphics/0.0.1
+  - Name: graphicssfml/0.0.1
+  - Name: ui/0.0.1
+  - Name: sfml/2.6.0
