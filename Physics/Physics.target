@@ -1,0 +1,9 @@
+Type: Interface
+PrecompileLocalHeaders: true
+PublicDependencies:
+  - Name: Graphics
+  - Name: Experimental/0.0.1
+  - Name: box2d/2.4.1
+PublicIncludes:
+  - Graphics.hpp
+  - Experimental.hpp

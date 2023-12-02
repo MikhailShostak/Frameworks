@@ -1,0 +1,11 @@
+Type: Class
+Attributes:
+  - Structure
+Namespace: Physics
+Properties:
+  - Name: Entity
+    Type: ECS.Entity
+  - Name: PhysicsComponent
+    Type: Physics2D.PhysicsComponent*
+  - Name: HitPoint
+    Type: Float3

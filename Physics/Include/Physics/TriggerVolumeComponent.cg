@@ -1,0 +1,25 @@
+Type: Class
+Attributes:
+  - Structure
+BaseType: ECS.EntityComponent
+Namespace: Physics2D
+Properties:
+  - Name: IgnoreList
+    Type: Array<Physics2D.PhysicsComponent*>
+  - Name: Radius
+    Type: float
+    Initialization: 0.1f
+    Attributes:
+      - Serialize
+
+  - Name: Body
+    Type: b2Body*
+  - Name: BodyType
+    Type: b2BodyType
+    Initialization: "b2BodyType::b2_dynamicBody"
+  - Name: MassData
+    Type: b2MassData
+  - Name: OnEnter
+    Type: Array<Physics.CollisionReportCallback>
+  - Name: OnExit
+    Type: Array<Physics.CollisionReportCallback>
