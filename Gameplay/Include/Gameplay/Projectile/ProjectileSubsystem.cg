@@ -1,0 +1,9 @@
+Type: Class
+BaseType: Graphics.SceneSubsystem
+Namespace: Gameplay
+Functions:
+  - Name: UpdateScene
+    InputParameters:
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true

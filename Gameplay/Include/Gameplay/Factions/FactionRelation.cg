@@ -1,0 +1,6 @@
+Type: Enumeration
+Namespace: Gameplay
+Values:
+  - Ally
+  - Enemy
+  - Neutral

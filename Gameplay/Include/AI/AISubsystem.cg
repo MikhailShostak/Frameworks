@@ -1,0 +1,16 @@
+Type: Class
+BaseType: Graphics.SceneSubsystem
+Namespace: AI
+Properties:
+  - Name: UpdateRate
+    Type: DateTime.SecondRatio
+    Attributes:
+      - Serialize
+  - Name: UpdateTimer
+    Type: DateTime.Timer<DateTime.Steady.Clock>
+Functions:
+  - Name: UpdateScene
+    InputParameters:
+      - Name: Scene
+        Type: Graphics.Scene
+        Writable: true

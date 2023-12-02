@@ -1,0 +1,11 @@
+Type: Class
+IndirectType: FactionDefinition
+Attributes:
+  - Structure
+BaseType: ECS.EntityComponent
+Namespace: Gameplay
+Properties:
+  - Name: Definition
+    Type: SharedReference<FactionDefinition>
+    Attributes:
+      - Serialize

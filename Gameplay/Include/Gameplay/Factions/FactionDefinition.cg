@@ -1,0 +1,54 @@
+Type: Class
+Attributes:
+  - Structure
+Namespace: Gameplay
+Properties:
+  - Name: Name
+    Type: StringID
+    Attributes:
+      - Serialize
+  - Name: Allies
+    Type: Array<StringID>
+    Attributes:
+      - Serialize
+  - Name: Enemies
+    Type: Array<StringID>
+    Attributes:
+      - Serialize
+Functions:
+  - Name: IsAlly
+    InputParameters:
+      - Name: Faction
+        Type: StringID
+    OutputParameters:
+      - Name: Result
+        Type: bool
+        Copy: true
+        Writable: true
+  - Name: IsEnemy
+    InputParameters:
+      - Name: Faction
+        Type: StringID
+    OutputParameters:
+      - Name: Result
+        Type: bool
+        Copy: true
+        Writable: true
+  - Name: IsNeutral
+    InputParameters:
+      - Name: Faction
+        Type: StringID
+    OutputParameters:
+      - Name: Result
+        Type: bool
+        Copy: true
+        Writable: true
+  - Name: GetRelation
+    InputParameters:
+      - Name: Faction
+        Type: StringID
+    OutputParameters:
+      - Name: Result
+        Type: Gameplay.FactionRelation
+        Copy: true
+        Writable: true

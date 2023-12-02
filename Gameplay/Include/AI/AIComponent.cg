@@ -1,0 +1,6 @@
+Type: Class
+Attributes:
+  - Structure
+BaseType: ECS.EntityComponent
+Namespace: AI
+Properties:

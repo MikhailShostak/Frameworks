@@ -1,0 +1,8 @@
+Type: Class
+BaseType: Graphics.SceneSubsystem
+Namespace: Gameplay
+Properties:
+  - Name: PlayerInputContexts
+    Type: SharedReference<Input.Context>
+    Attributes:
+      - Serialize

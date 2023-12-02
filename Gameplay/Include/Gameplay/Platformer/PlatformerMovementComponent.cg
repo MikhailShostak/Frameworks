@@ -1,0 +1,26 @@
+Type: Class
+Attributes:
+  - Structure
+BaseType: ECS.EntityComponent
+Namespace: Gameplay
+Properties:
+  - Name: Damping
+    Type: float
+    Initialization: 10
+    Attributes:
+      - Serialize
+  - Name: Speed
+    Type: float
+    Initialization: 50000
+    Attributes:
+      - Serialize
+  - Name: DashStrength
+    Type: float
+    Initialization: 5
+    Attributes:
+      - Serialize
+
+  - Name: Dash
+    Type: bool
+  - Name: Jump
+    Type: bool

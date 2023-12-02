@@ -1,0 +1,12 @@
+Type: Class
+Attributes:
+  - Structure
+BaseType: ECS.EntityComponent
+Namespace: Gameplay
+Properties:
+  - Name: LifetimeDuration
+    Type: DateTime.Seconds
+    Attributes:
+      - Serialize
+  - Name: LifetimeTimer
+    Type: DateTime.Timer<DateTime.Steady.Clock>

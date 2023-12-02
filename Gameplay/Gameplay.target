@@ -1,0 +1,11 @@
+Type: Library
+PrecompileLocalHeaders: true
+PublicDependencies:
+  - Name: Graphics/0.0.1
+    Override: true
+  - Name: Inputs/0.0.1
+  - Name: Physics/0.0.1
+PublicIncludes:
+  - Graphics.hpp
+  - Physics.hpp
+  - Inputs.hpp

@@ -1,0 +1,30 @@
+Type: Class
+Attributes:
+  - Structure
+BaseType: ECS.EntityComponent
+Namespace: Gameplay
+Properties:
+  - Name: Definition
+    Type: SharedReference<ECS.EntityDefinition>
+    Attributes:
+      - Serialize
+  - Name: Amount
+    Type: int32_t
+    Attributes:
+      - Serialize
+  - Name: CooldownDuration
+    Type: DateTime.SecondRatio
+    Attributes:
+      - Serialize
+  - Name: CooldownTimer
+    Type: DateTime.Timer<DateTime.Steady.Clock>
+  - Name: BoxExtent
+    Type: Float3
+    Attributes:
+      - Serialize
+  - Name: OffsetRadius
+    Type: float
+    Attributes:
+      - Serialize
+  - Name: Entities
+    Type: Array<ECS::Entity>

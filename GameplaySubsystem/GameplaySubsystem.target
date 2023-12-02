@@ -1,6 +1,0 @@
-Type: Library
-PrecompileLocalHeaders: true
-PublicDependencies:
-  - Name: Graphics
-PublicIncludes:
-  - Graphics.hpp
