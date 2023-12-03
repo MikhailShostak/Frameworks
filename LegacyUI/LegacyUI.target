@@ -1,0 +1,8 @@
+Type: Library
+PublicIncludes:
+  - LegacyGraphics.hpp
+PublicDependencies:
+  - Name: LegacyGraphics/0.0.1@dev
+  - Name: LegacySystem/0.0.1@dev
+  - Name: LegacyFonts/0.0.1@dev
+  - Name: LegacyUIDarkTheme/0.0.1@dev

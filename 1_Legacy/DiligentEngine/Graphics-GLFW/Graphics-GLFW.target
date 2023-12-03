@@ -1,0 +1,15 @@
+Name: Graphics
+Type: Library
+PrecompileLocalHeaders: true
+PublicIncludes:
+  - Core.hpp
+PublicDependencies:
+  - Name: Core
+PrivateDefines:
+  NULL_RHI: 1
+  SFML_WINDOW_PLATFORM: 1
+PrivateDependencies:
+  - Name: stb/cci.20230920
+  - Name: imgui/1.89.8-docking
+  - Name: sfml/2.6.0
+  - Name: glfw/3.3.8

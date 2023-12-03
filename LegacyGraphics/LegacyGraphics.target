@@ -1,0 +1,17 @@
+Type: Library
+PublicDefines:
+  METAOBJECT_SUPPORT: 1
+  REFLECTION_SUPPORT: 1
+PublicIncludes:
+  - LegacyMath.hpp
+  - LegacyFoundation.hpp
+PublicDependencies:
+  - Name: LegacyMath/0.0.1@dev
+  - Name: LegacyFoundation/0.0.1@dev
+  - Name: LegacyData/0.0.1@dev
+  - Name: LegacyConsole/0.0.1@dev
+  - Name: LegacyAssets/0.0.1@dev
+  - Name: LegacyImages/0.0.1@dev
+  - Name: LegacyReflection/0.0.1@dev
+  - Name: glfw/3.3.8
+  - Name: glew/2.2.0

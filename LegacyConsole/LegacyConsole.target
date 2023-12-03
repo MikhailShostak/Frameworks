@@ -1,0 +1,3 @@
+Type: Interface
+PublicDependencies:
+  - Name: LegacyFoundation/0.0.1@dev

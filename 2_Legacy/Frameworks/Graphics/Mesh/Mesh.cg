@@ -1,0 +1,18 @@
+Type: Class
+Attributes:
+  - Structure
+  - DefaultConstructor
+  - Destructor
+  - Move
+Namespace: Graphics
+Properties:
+  - Name: Vertices
+    Type: Array<Vertex>
+  - Name: Faces
+    Type: Array<Face>
+  - Attributes:
+      - Incomplete
+    Name: Data
+    Type: InplaceStorage<MeshPrivateData, 16, 8>
+  - Name: IsCompiled
+    Type: bool

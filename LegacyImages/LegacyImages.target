@@ -1,0 +1,5 @@
+Type: Library
+PublicDependencies:
+  - Name: LegacyMath/0.0.1@dev
+  - Name: LegacyFoundation/0.0.1@dev
+  - Name: stb/cci.20230920

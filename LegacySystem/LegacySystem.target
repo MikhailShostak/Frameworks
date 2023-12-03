@@ -1,0 +1,5 @@
+Type: Interface
+PublicDependencies:
+  - Name: boost/1.83.0
+  - Name: fmt/10.1.0
+  - Name: range-v3/0.12.0

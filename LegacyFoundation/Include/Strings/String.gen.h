@@ -1,0 +1,17 @@
+#pragma once
+
+//CLASSGEN GENERATED REGION: Includes
+#include <AString.h>
+
+//CLASSGEN END REGION
+
+//CLASSGEN GENERATED REGION: NamespaceBegin
+//CLASSGEN END REGION
+//CLASSGEN GENERATED REGION: Source
+namespace Legacy
+{
+using String = String;
+}
+//CLASSGEN END REGION
+//CLASSGEN GENERATED REGION: NamespaceEnd
+//CLASSGEN END REGION

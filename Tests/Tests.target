@@ -1,0 +1,11 @@
+Type: Application
+PrivateIncludes:
+  - LegacyPlatform.hpp
+  - LegacyUI.hpp
+  - LegacySystem.hpp
+PrivateDependencies:
+  - Name: LegacyPlatform/0.0.1@dev
+  - Name: LegacyUI/0.0.1@dev
+  - Name: LegacySystem/0.0.1@dev
+  - Name: utils/0.0.1@dev
+    Override: true

@@ -1,0 +1,7 @@
+Type: Library
+PublicIncludes:
+  - Utils.hpp
+PublicDependencies:
+  - Name: boost/1.83.0
+  - Name: fmt/10.1.0
+  - Name: utils/0.0.1

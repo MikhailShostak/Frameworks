@@ -1,0 +1,10 @@
+Version: 1.0.0
+Targets:
+  - Name: ConanManager
+    Type: Application
+    PrivateIncludes:
+      - Utils.hpp
+    PrivateDependencies:
+      - Utils/1.0.0
+      - imgui/1.89.8-docking
+      - bgfx/cci.20230216

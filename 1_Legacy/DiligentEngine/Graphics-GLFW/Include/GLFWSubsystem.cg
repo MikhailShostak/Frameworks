@@ -1,0 +1,10 @@
+Type: Class
+BaseType: Graphics.WindowSubsystem
+Namespace: Graphics
+Functions:
+  - Name: Load
+  - Name: Unload
+  - Name: Update
+Properties:
+  - Name: Input
+    Type: SharedReference<Input.Subsystem>

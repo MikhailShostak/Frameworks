@@ -1,0 +1,99 @@
+Targets:
+  - Name: Math
+    Type: Interface
+    PackageVersion: 1.0.0
+  - Name: Foundation
+    Type: Interface
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Math
+    Dependencies:
+      - Utils/1.0.0
+    Includes:
+      - Utils
+  - Name: Assets
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Foundation
+  - Name: Console
+    Type: Interface
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Foundation
+  - Name: Data
+    Type: Interface
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Foundation
+  - Name: LegacySystem
+    Type: Interface
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Foundation
+  - Name: LegacyReflection
+    Type: Interface
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Foundation
+  - Name: Fonts
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Data
+    Dependencies:
+      - freetype/2.11.1
+  - Name: ImageFormats
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Foundation
+    Dependencies:
+      - ExperimentalThirdParty/1.0.0
+    Includes:
+      - ExperimentalThirdParty
+  - Name: LegacyGraphics
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - Data
+      - ImageFormats
+      - Assets
+      - LegacyReflection
+    Dependencies:
+      - glew/2.2.0
+  - Name: Platform
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - LegacyGraphics
+  - Name: Flow
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - LegacyGraphics
+  - Name: UIDarkTheme
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - LegacyGraphics
+  - Name: UI
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - UIDarkTheme
+      - Fonts
+      - Console
+      - LegacySystem
+  - Name: LegacyExperimental
+    Type: StaticLibrary
+    PackageVersion: 1.0.0
+    LocalDependencies:
+      - UI
+    Dependencies:
+      - fmt/8.0.1
+    Includes:
+      - fmt/format.h
+TargetPackageNames:
+    glew: GLEW
+    freetype: Freetype

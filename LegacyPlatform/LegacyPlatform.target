@@ -1,0 +1,6 @@
+Type: Library
+PublicIncludes:
+  - LegacyGraphics.hpp
+PublicDependencies:
+  - Name: LegacyGraphics/0.0.1@dev
+  - Name: glew/2.2.0
