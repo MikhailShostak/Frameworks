@@ -20,16 +20,67 @@ inline auto GetCurrentEnvironment()
     return boost::this_process::environment();
 }
 
-template<typename ...Args>
-inline System::Path SearchPath(const System::Path &Path)
+inline std::vector<boost::process::filesystem::path> GetLocalPaths(const System::Path &Path)
 {
     //TODO: use System::Path instead of boost::filesystem::path
-    
+    const auto ParentPath = Path.parent_path();
+    std::vector<boost::process::filesystem::path> Paths;
     if (Path.is_relative())
     {
-        std::vector<boost::process::filesystem::path> Paths = boost::this_process::path();
-        Paths.push_back(Path.parent_path().generic_string());
-        return boost::process::search_path(Path.generic_string(), Paths).generic_string();
+        Paths = {
+            ParentPath.generic_string(),
+            System::GetAbsolute(ParentPath).generic_string(),
+        };
+    }
+    else
+    {
+        Paths = {
+            ParentPath.generic_string(),
+        };
+    }
+    return Paths;
+}
+
+inline System::Path SearchFile(const System::Path &Path)
+{
+    //TODO: use System::Path instead of boost::filesystem::path
+    auto SearchIn = [&Path](const std::vector<boost::process::filesystem::path> &Paths) -> System::Path
+    {
+        System::Path Result;
+        for (const auto &Folder : Paths)
+        {
+            const System::Path FullPath = System::Path(Folder.generic_string()) / Path;
+            if (System::IsRegularFile(FullPath))
+            {
+                Result = std::move(FullPath);
+                break;
+            }
+        }
+        return Result;
+    };
+
+    System::Path Result = SearchIn(GetLocalPaths(Path));
+    if (Result.empty())
+    {
+        Result = SearchIn(::boost::this_process::path());
+    }
+
+    return Result;
+}
+
+inline System::Path SearchExecutable(const System::Path &Path)
+{
+    //TODO: use System::Path instead of boost::filesystem::path
+
+    if (Path.has_parent_path())
+    {
+        std::vector<boost::process::filesystem::path> Paths = GetLocalPaths(Path);
+        const auto Filename = Path.filename();
+        const auto FoundPath = boost::process::search_path(Filename.generic_string(), Paths);
+        if (!FoundPath.empty())
+        {
+            return FoundPath.generic_string();
+        }
     }
 
     return boost::process::search_path(Path.generic_string()).generic_string();
@@ -38,7 +89,7 @@ inline System::Path SearchPath(const System::Path &Path)
 template<typename ...Args>
 inline System::Subprocess Run(const System::Path &Executable, Args &&...args)
 {
-    return System::Subprocess((Executable.is_relative() ? SearchPath(Executable) : Executable).generic_string(), std::forward<Args>(args)...);
+    return System::Subprocess(SearchExecutable(Executable).generic_string(), std::forward<Args>(args)...);
 }
 
 template<typename ...Args>
@@ -74,7 +125,7 @@ inline Array<String> GetOutputLines(const System::Path &Executable, Args &&...ar
     while (subprocess.running() && std::getline(stream, line) && !line.empty())
     {
         lines.push_back(std::move(line));
-    }    
+    }
     return lines;
 }
 
