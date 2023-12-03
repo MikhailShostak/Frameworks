@@ -185,6 +185,44 @@ inline FileTime GetLastWriteTime(const Path& path, std::error_code& error_code, 
 inline void SetLastWriteTime(const Path& path, FileTime new_time) { std::filesystem::last_write_time(path, new_time); }
 inline void SetLastWriteTime(const Path& path, FileTime new_time, std::error_code& error_code) noexcept { std::filesystem::last_write_time(path, new_time); }
 
+inline bool IsNewer(const System::Path &Source, const System::Path &Target)
+{
+    return System::GetLastWriteTime(Source) > System::GetLastWriteTime(Target);
+}
+
+inline bool IsOlder(const System::Path &Source, const System::Path &Target)
+{
+    return System::GetLastWriteTime(Source) < System::GetLastWriteTime(Target);
+}
+
+inline bool IsOutdated(const System::Path &Path, const System::Path &Dependency)
+{
+    if (!IsExists(Path))
+    {
+        return true;
+    }
+
+    return IsOlder(Path, Dependency);
+}
+
+inline bool IsOutdated(const System::Path &Path, const Array<System::Path> &Dependencies)
+{
+    if (!IsExists(Path))
+    {
+        return true;
+    }
+
+    for (const auto &Dependency : Dependencies)
+    {
+        if (IsOlder(Path, Dependency))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 inline SpaceInfo GetSpaceInfo(const Path& path) { return std::filesystem::space(path); }
 inline SpaceInfo GetSpaceInfo(const Path& path, std::error_code& error_code) noexcept { return std::filesystem::space(path, error_code); }
 
