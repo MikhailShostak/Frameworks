@@ -1,0 +1,54 @@
+Type: Enumeration
+Namespace: Animations
+Values:
+  - Linear
+
+  - QuadIn
+  - QuadOut
+  - QuadInOut
+  - QuadOutIn
+
+  - CubicIn
+  - CubicOut
+  - CubicInOut
+  - CubicOutIn
+
+  - QuartIn
+  - QuartOut
+  - QuartInOut
+  - QuartOutIn
+
+  - QuintIn
+  - QuintOut
+  - QuintInOut
+  - QuintOutIn
+
+  - SineIn
+  - SineOut
+  - SineInOut
+  - SineOutIn
+
+  - ExpoIn
+  - ExpoOut
+  - ExpoInOut
+  - ExpoOutIn
+
+  - CircIn
+  - CircOut
+  - CircInOut
+  - CircOutIn
+
+  - ElasticIn
+  - ElasticOut
+  - ElasticInOut
+  - ElasticOutIn
+
+  - BackIn
+  - BackOut
+  - BackInOut
+  - BackOutIn
+
+  - BounceIn
+  - BounceOut
+  - BounceInOut
+  - BounceOutIn

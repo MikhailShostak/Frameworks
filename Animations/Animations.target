@@ -1,0 +1,5 @@
+Type: Interface
+PublicIncludes:
+  - Core.hpp
+PublicDependencies:
+  - Name: Core
