@@ -1,5 +1,0 @@
-Type: Class
-BaseType: ClassGen.ValuePropertyEditor<int>
-Functions:
-  - Name: Draw
-Namespace: ClassGen
