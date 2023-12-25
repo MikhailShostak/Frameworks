@@ -4,8 +4,8 @@ PrivateIncludes:
   - LegacyUI.hpp
   - LegacySystem.hpp
 PrivateDependencies:
-  - Name: LegacyPlatform/0.0.1@dev
-  - Name: LegacyUI/0.0.1@dev
-  - Name: LegacySystem/0.0.1@dev
-  - Name: utils/0.0.1@dev
+  - Name: LegacyPlatform
+  - Name: LegacyUI
+  - Name: LegacySystem
+  - Name: utils
     Override: true
