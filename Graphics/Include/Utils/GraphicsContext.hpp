@@ -35,6 +35,7 @@ struct PUBLIC_API_EXPORT GraphicsContext
     virtual void Draw(Graphics::Mesh & Mesh, Graphics::DrawBatchBase & Batch);
     virtual void Render(Graphics::SwapChain & SwapChain);
     virtual void ApplyMaterial(Graphics::Material & Material);
+    virtual void ApplyShaderVariable(Graphics::ShaderMetatype & Variable);
     virtual void InvalidateMaterial(Graphics::Material & Material);
     virtual void InvalidateTexture(Graphics::Texture & Texture);
 

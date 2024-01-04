@@ -6,6 +6,14 @@ Attributes:
   - Move
 Namespace: Graphics
 Properties:
+  - Name: SourcePath
+    Type: System.Path
+    Attributes:
+      - Serialize
+  - Name: SourceName
+    Type: StringID
+    Attributes:
+      - Serialize
   - Name: Vertices
     Type: Array<Vertex>
   - Name: Faces

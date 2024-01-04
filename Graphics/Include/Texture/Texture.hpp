@@ -9,6 +9,7 @@ struct PUBLIC_API_EXPORT Texture
     Array<uint8_t> Buffer {};
     Int3 Size {};
     uint8_t Channels {};
+    bool HDR {};
     Graphics::TextureFiltration Filtration {};
     Graphics::TextureWrapping Wrapping {};
     bool IsCompiled {};
@@ -20,6 +21,11 @@ struct PUBLIC_API_EXPORT Texture
     template<typename T>
     void Serialize(T &&data)
     {
+        data["Size"] & Size;
+        data["Channels"] & Channels;
+        data["HDR"] & HDR;
+        data["Filtration"] & Filtration;
+        data["Wrapping"] & Wrapping;
     }
 
     void Initialize()

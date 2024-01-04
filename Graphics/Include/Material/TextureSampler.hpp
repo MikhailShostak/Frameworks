@@ -13,6 +13,8 @@ struct PUBLIC_API_EXPORT TextureSampler
     template<typename T>
     void Serialize(T &&data)
     {
+        data["Name"] & Name;
+        data["Texture"] & Texture;
     }
 
     void Initialize()

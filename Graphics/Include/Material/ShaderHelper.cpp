@@ -8,7 +8,7 @@ ShaderMetatype::ShaderMetatype(ShaderMetatype && other) = default;
 ShaderMetatype &ShaderMetatype::operator =(ShaderMetatype && other) = default;
 ShaderMetatype::~ShaderMetatype() = default;
 
-ShaderMetatype::ShaderMetatype(const char *Metatype, const char *Name, size_t DataSize)
+ShaderMetatype::ShaderMetatype(const char *Metatype, const StringID &Name, size_t DataSize)
 {
     this->Metatype = Metatype;
     this->Name = Name;

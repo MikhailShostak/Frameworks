@@ -2,11 +2,11 @@
 
 namespace Graphics
 {
-    
+
 struct PUBLIC_API_EXPORT ShaderVariableBinding
 {
     const char *Type = nullptr;
-    const char *Name = nullptr;
+    StringID Name = nullptr;
     const char *Reg = nullptr;
 };
 
@@ -15,27 +15,33 @@ struct PUBLIC_API_EXPORT ShaderMetatype
     Array<ShaderVariableBinding> Variables;
 
     const char* Metatype = nullptr;
-    const char* Name = nullptr;
+    StringID Name;
 
     size_t TypeID = 0;
     size_t DataSize = 0;
     void *DataPointer = 0;
-        
+
+    template<typename T>
+    void Serialize(T &&data)
+    {
+        data["Name"] & Name;
+    }
+
     template<typename ReturnType>
-    ReturnType Register(const char *type, const char *name, const char *reg = nullptr)
+    ReturnType Register(const char *type, const StringID name, const char *reg = nullptr)
     {
         Variables.push_back({ type, name, reg });
         return ReturnType();
     }
-    
+
     ShaderMetatype();
-    ~ShaderMetatype();
+    virtual ~ShaderMetatype();
     ShaderMetatype(const ShaderMetatype &other);
     ShaderMetatype &operator =(const ShaderMetatype &other);
     ShaderMetatype(ShaderMetatype &&other);
     ShaderMetatype &operator =(ShaderMetatype &&other);
 
-    ShaderMetatype(const char *Metatype, const char *Name, size_t DataSize);
+    ShaderMetatype(const char *Metatype, const StringID &Name, size_t DataSize);
 
     String GetCode()
     {
@@ -61,14 +67,29 @@ struct PUBLIC_API_EXPORT ShaderMetatype
 template<typename Type>
 struct PUBLIC_API_EXPORT ShaderVariable : public ShaderMetatype
 {
-    Type Value;
+    using Super = ShaderMetatype;
 
-    ShaderVariable(const char *Name)
+    Type Value {};
+
+    ShaderVariable()
+    {
+        TypeID = typeid(Type).hash_code();
+        DataSize = sizeof(Type);
+        DataPointer = &Value;
+    }
+
+    ShaderVariable(const StringID &Name)
     {
         this->Name = Name;
         TypeID = typeid(Type).hash_code();
         DataSize = sizeof(Type);
         DataPointer = &Value;
+    }
+
+    template<typename T>
+    void Serialize(T &&data)
+    {
+        data["Value"] & Value;
     }
 };
 

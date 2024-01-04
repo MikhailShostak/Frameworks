@@ -5,6 +5,7 @@ namespace Graphics
 struct PUBLIC_API_EXPORT Material
 {
     using This = Material;
+    System::Path SourceShaderPath {};
     Graphics::Shader VertexShader {};
     Graphics::Shader PixelShader {};
     Array<TextureSampler> TextureSamplers {};
@@ -15,6 +16,11 @@ struct PUBLIC_API_EXPORT Material
     template<typename T>
     void Serialize(T &&data)
     {
+        data["SourceShaderPath"] & SourceShaderPath;
+        data["VertexShader"] & VertexShader;
+        data["PixelShader"] & PixelShader;
+        data["TextureSamplers"] & TextureSamplers;
+        data["Settings"] & Settings;
     }
 
     void Initialize()

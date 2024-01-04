@@ -16,10 +16,10 @@ Functions:
         Writable: true
     Name: Initialize
     OutputParameters:
-      - Copy: false
+      - Copy: true
         Name: Result
         Type: bool
-        Writable: false
+        Writable: true
   - InputParameters:
       - Copy: false
         Name: Batch
@@ -130,6 +130,12 @@ Functions:
         Type: Graphics.Material
         Writable: true
     Name: ApplyMaterial
+  - InputParameters:
+      - Copy: false
+        Name: Variable
+        Type: Graphics.ShaderMetatype
+        Writable: true
+    Name: ApplyShaderVariable
   - InputParameters:
       - Copy: false
         Name: Material

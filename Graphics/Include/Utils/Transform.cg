@@ -1,20 +1,19 @@
 Type: Class
 Attributes:
   - Structure
-  - DefaultConstructor
 Functions:
   - Name: GetMatrix
     OutputParameters:
-      - Copy: false
+      - Copy: true
         Name: Transform
         Type: Matrix4
-        Writable: false
+        Writable: true
   - Name: GetInverseMatrix
     OutputParameters:
-      - Copy: false
+      - Copy: true
         Name: Transform
         Type: Matrix4
-        Writable: false
+        Writable: true
 Graphs:
   Function.GetInverseMatrix:
     Nodes:
@@ -42,3 +41,4 @@ Properties:
       - Serialize
     Name: Scale
     Type: Float3
+    Initialization: 1

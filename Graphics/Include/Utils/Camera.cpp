@@ -32,31 +32,31 @@ inline Matrix4 GetPerspectiveProjection(Float2 Resolution, float FieldOfView, fl
     return GetPerspectiveProjection(Resolution.x / Resolution.y, FieldOfView, NearPlane, FarPlane);
 }
 
-Camera::Camera() :
-    Resolution(Int2{ 0, 0 }),
-    NearPlane(0.01f),
-    FarPlane(100.f),
-    FieldOfView(45.0f)
-{
-
-}
-
-Matrix4/*Projection*/ Camera::GetOrthographicProjection()
+Matrix4/*Matrix*/ Camera::GetOrthographicProjection()
 {
     return Graphics::GetOrthographicProjection(Resolution, NearPlane, FarPlane);
 }
 
-Matrix4/*Projection*/ Camera::GetPerspectiveProjection()
+Matrix4/*Matrix*/ Camera::GetPerspectiveProjection()
 {
     return Graphics::GetPerspectiveProjection(Resolution, FieldOfView, NearPlane, FarPlane);
 }
 
-Matrix4/*View*/ Camera::GetView()
+Matrix4/*Matrix*/ Camera::GetProjection()
 {
-    auto projection = FieldOfView == 0.0f ? GetOrthographicProjection() : GetPerspectiveProjection();
+    return FieldOfView == 0.0f ? GetOrthographicProjection() : GetPerspectiveProjection();
+}
+
+Matrix4/*Matrix*/ Camera::GetView()
+{
     auto view = Transform.GetInverseMatrix();
     view = mul(Matrix4(hlslpp::quaternion::rotation_axis({ 1, 0, 0 }, hlslpp::radians(hlslpp::float1{ 90 }))), view);
-    return hlslpp::mul(view, projection);
+    return view;
+}
+
+Matrix4/*Matrix*/ Camera::GetViewProjection()
+{
+    return hlslpp::mul(GetView(), GetProjection());
 }
 
 }

@@ -7,8 +7,7 @@ struct PUBLIC_API_EXPORT Transform
     using This = Transform;
     Float3 Position {};
     Float3 Rotation {};
-    Float3 Scale {};
-    Transform();
+    Float3 Scale { 1 };
 
     template<typename T>
     void Serialize(T &&data)

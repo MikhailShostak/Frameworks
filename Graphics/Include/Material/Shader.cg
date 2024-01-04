@@ -12,9 +12,17 @@ Properties:
     Type: InplaceStorage<ShaderPrivateData, 8, 8>
   - Name: Constants
     Type: Array<SharedReference<ShaderMetatype>>
+    Attributes:
+      - Serialize
   - Name: Variables
     Type: Array<SharedReference<ShaderMetatype>>
+    Attributes:
+      - Serialize
   - Name: InputLayout
     Type: SharedReference<ShaderMetatype>
+    Attributes:
+      - Serialize
   - Name: OutputLayout
     Type: SharedReference<ShaderMetatype>
+    Attributes:
+      - Serialize

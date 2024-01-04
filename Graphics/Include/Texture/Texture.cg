@@ -14,11 +14,23 @@ Properties:
     Type: Array<uint8_t>
   - Name: Size
     Type: Int3
+    Attributes:
+      - Serialize
   - Name: Channels
     Type: uint8_t
+    Attributes:
+      - Serialize
+  - Name: HDR
+    Type: bool
+    Attributes:
+      - Serialize
   - Name: Filtration
     Type: Graphics.TextureFiltration
+    Attributes:
+      - Serialize
   - Name: Wrapping
     Type: Graphics.TextureWrapping
+    Attributes:
+      - Serialize
   - Name: IsCompiled
     Type: bool

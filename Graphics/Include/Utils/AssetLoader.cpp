@@ -135,42 +135,45 @@ void LoadMaterials(Graphics::AssetLoader &loader, const aiScene *scene, const Sy
     }
 }
 
-SharedReference<Graphics::Mesh> LoadMesh(const aiMesh& mesh)
+void LoadMesh(Graphics::Mesh &Mesh, const aiMesh& mesh)
 {
-    auto result = CreateShared<Graphics::Mesh>();
-
-    result->Vertices.resize(mesh.mNumVertices);
+    Mesh.Vertices.resize(mesh.mNumVertices);
     for (size_t i = 0; i < mesh.mNumVertices; ++i)
     {
         aiVector3D p = mesh.mVertices[i];
         aiVector3D n = mesh.mNormals[i];
-        result->Vertices[i].pos = { p.x, p.y, p.z, 0.0f };
-        result->Vertices[i].normal = { n.x, n.y, n.z, 0.0f };
+        Mesh.Vertices[i].pos = { p.x, p.y, p.z, 0.0f };
+        Mesh.Vertices[i].normal = { n.x, n.y, n.z, 0.0f };
         if (mesh.mTextureCoords[0])
         {
             aiVector3D uv = mesh.mTextureCoords[0][i];
-            result->Vertices[i].uv = { uv.x, 1.0f - uv.y, 0.0f, 0.0f };
+            Mesh.Vertices[i].uv = { uv.x, 1.0f - uv.y, 0.0f, 0.0f };
         }
 
         if (mesh.mTangents)
         {
             aiVector3D t = mesh.mTangents[i];
-            result->Vertices[i].data = { t.x, t.y, t.z, 0.0f };
+            Mesh.Vertices[i].data = { t.x, t.y, t.z, 0.0f };
         }
         /*if (mesh.mColors[0])
         {
             aiColor4D c = mesh.mColors[0][i];
-            result->Vertices[i].data = { c.r, c.g, c.b, c.a };
+            Mesh.Vertices[i].data = { c.r, c.g, c.b, c.a };
         }*/
     }
 
-    result->Faces.resize(mesh.mNumFaces);
+    Mesh.Faces.resize(mesh.mNumFaces);
     for (size_t i = 0; i < mesh.mNumFaces; ++i)
     {
         aiFace f = mesh.mFaces[i];
-        result->Faces[i] = { f.mIndices[0], f.mIndices[1], f.mIndices[2] };
+        Mesh.Faces[i] = { f.mIndices[0], f.mIndices[1], f.mIndices[2] };
     }
+}
 
+SharedReference<Graphics::Mesh> LoadMesh(const aiMesh& mesh)
+{
+    auto result = CreateShared<Graphics::Mesh>();
+    LoadMesh(*result, mesh);
     return result;
 }
 
@@ -184,22 +187,29 @@ void LoadMeshes(Graphics::AssetLoader& loader, const aiScene* scene, size_t Init
     }
 }
 
-SharedReference<Graphics::Mesh> AssetLoader::LoadMesh(const System::Path& path, const String& name)
+void AssetLoader::LoadMesh(Graphics::Mesh &Mesh)
 {
-    SharedReference<Graphics::Mesh> result;
-    LoadScene(path, [&](const aiScene& scene)
+    LoadScene(Mesh.SourcePath, [&](const aiScene& scene)
     {
         for (size_t i = 0; i < scene.mNumMeshes; ++i)
         {
             aiMesh* mesh = scene.mMeshes[i];
-            if (name == mesh->mName.C_Str())
+            if (Mesh.SourceName == mesh->mName.C_Str())
             {
-                result = Graphics::LoadMesh(*mesh);
+                Graphics::LoadMesh(Mesh, *mesh);
                 break;
             }
         }
     });
-    return result;
+}
+
+SharedReference<Graphics::Mesh> AssetLoader::LoadMesh(const System::Path& path, const String& name)
+{
+    SharedReference<Graphics::Mesh> Mesh = CreateShared<Graphics::Mesh>();
+    Mesh->SourcePath = path;
+    Mesh->SourceName = name;
+    LoadMesh(*Mesh);
+    return Mesh;
 }
 
 SharedReference<Graphics::Material> AssetLoader::LoadMaterial(const System::Path& path, const String& name)

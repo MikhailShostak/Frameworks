@@ -6,7 +6,11 @@ Namespace: Graphics
 Properties:
   - Name: Name
     Type: String
+    Attributes:
+      - Serialize
   - Name: Texture
     Type: SharedReference<Graphics.Texture>
+    Attributes:
+      - Serialize
   - Name: Flags
     Type: ShaderFlags

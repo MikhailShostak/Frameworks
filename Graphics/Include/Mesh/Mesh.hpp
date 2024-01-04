@@ -5,6 +5,8 @@ namespace Graphics
 struct PUBLIC_API_EXPORT Mesh
 {
     using This = Mesh;
+    System::Path SourcePath {};
+    StringID SourceName {};
     Array<Vertex> Vertices {};
     Array<Face> Faces {};
     InplaceStorage<MeshPrivateData, 16, 8, false> Data;
@@ -17,6 +19,8 @@ struct PUBLIC_API_EXPORT Mesh
     template<typename T>
     void Serialize(T &&data)
     {
+        data["SourcePath"] & SourcePath;
+        data["SourceName"] & SourceName;
     }
 
     void Initialize()

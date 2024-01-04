@@ -1,26 +1,37 @@
 Type: Class
 Attributes:
   - Structure
-  - DefaultConstructor
 Functions:
   - Name: GetOrthographicProjection
     OutputParameters:
-      - Copy: false
-        Name: Projection
+      - Copy: true
+        Name: Matrix
         Type: Matrix4
-        Writable: false
+        Writable: true
   - Name: GetPerspectiveProjection
     OutputParameters:
-      - Copy: false
-        Name: Projection
+      - Copy: true
+        Name: Matrix
         Type: Matrix4
-        Writable: false
+        Writable: true
+  - Name: GetProjection
+    OutputParameters:
+      - Copy: true
+        Name: Matrix
+        Type: Matrix4
+        Writable: true
   - Name: GetView
     OutputParameters:
-      - Copy: false
-        Name: View
+      - Copy: true
+        Name: Matrix
         Type: Matrix4
-        Writable: false
+        Writable: true
+  - Name: GetViewProjection
+    OutputParameters:
+      - Copy: true
+        Name: Matrix
+        Type: Matrix4
+        Writable: true
 Graphs:
   Function.GetOrthographicProjection:
     Nodes:
@@ -54,11 +65,14 @@ Properties:
       - Serialize
     Name: NearPlane
     Type: float
+    Initialization: 1
   - Attributes:
       - Serialize
     Name: FarPlane
     Type: float
+    Initialization: 10000
   - Attributes:
       - Serialize
     Name: FieldOfView
     Type: float
+    Initialization: 45.0

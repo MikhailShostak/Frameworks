@@ -3,15 +3,27 @@ Attributes:
   - Structure
 Namespace: Graphics
 Properties:
+  - Name: SourceShaderPath
+    Type: System.Path
+    Attributes:
+      - Serialize
   - Name: VertexShader
     Type: Graphics.Shader
+    Attributes:
+      - Serialize
   - Name: PixelShader
     Type: Graphics.Shader
+    Attributes:
+      - Serialize
   - Name: TextureSamplers
     Type: Array<TextureSampler>
+    Attributes:
+      - Serialize
   - Name: IsCompiled
     Type: bool
   - Name: Settings
     Type: Graphics.MaterialRenderingSettings
+    Attributes:
+      - Serialize
   - Name: RenderBuffer
     Type: Graphics.RenderBuffer

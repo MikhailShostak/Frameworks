@@ -19,6 +19,10 @@ struct PUBLIC_API_EXPORT Shader
     template<typename T>
     void Serialize(T &&data)
     {
+        data["Constants"] & Constants;
+        data["Variables"] & Variables;
+        data["InputLayout"] & InputLayout;
+        data["OutputLayout"] & OutputLayout;
     }
 
     void Initialize()
