@@ -87,7 +87,7 @@ void GraphicsContext::CreateDrawBatch(Graphics::DrawBatchBase &Batch)
 
 void GraphicsContext::CreateConstants(Graphics::ShaderMetatype &Constants)
 {
-    
+
 }
 
 void GraphicsContext::CreateMesh(Graphics::Mesh &Mesh)
@@ -121,14 +121,80 @@ void GraphicsContext::Create2DTexture(Graphics::Texture &Texture)
     glGenTextures(1, &Texture.Data->Handle);
     glBindTexture(GL_TEXTURE_2D, Texture.Data->Handle);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    auto Channels = [&](){
+        switch(Texture.Channels)
+        {
+        case 0:
+            return GL_DEPTH_COMPONENT;
+        case 1:
+            return GL_R;
+        case 2:
+            return GL_RG;
+        case 3:
+            return GL_RGB;
+        case 4:
+            return GL_RGBA;
+        }
+    }();
 
-    auto Channels = Texture.Channels == 4 ? GL_RGBA : GL_RGB;
-    glTexImage2D(GL_TEXTURE_2D, 0, Channels, Texture.Size[0], Texture.Size[1], 0, Channels, GL_UNSIGNED_BYTE, Texture.Buffer.data());
-    //glGenerateMipmap(GL_TEXTURE_2D);
+    auto Format = [&](){
+        switch(Texture.Channels)
+        {
+        case 0:
+            return GL_DEPTH_COMPONENT;
+        case 1:
+            return Texture.HDR ? GL_R32F : GL_R;
+        case 2:
+            return Texture.HDR ? GL_RG32F : GL_RG;
+        case 3:
+            return Texture.HDR ? GL_RGB32F : GL_RGB;
+        case 4:
+            return Texture.HDR ? GL_RGBA32F : GL_RGBA;
+        }
+    }();
+
+    if (Texture.Buffer.size())
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, Format, Texture.Size[0], Texture.Size[1], 0, Channels, Texture.HDR ? GL_FLOAT : GL_UNSIGNED_BYTE, Texture.Buffer.data());
+    }
+    else
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, Format, Texture.Size[0], Texture.Size[1], 0, Channels, Texture.HDR ? GL_FLOAT : GL_UNSIGNED_BYTE, nullptr);
+    }
+
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    const bool NeedsMipmaps = Texture.Filtration == Graphics::TextureFiltration::Trilinear;
+
+    if (NeedsMipmaps)
+    {
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+
+    switch(Texture.Filtration)
+    {
+    case Graphics::TextureFiltration::Nearest:
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        break;
+    case Graphics::TextureFiltration::Bilinear:
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        break;
+    case Graphics::TextureFiltration::Trilinear:
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        break;
+    case Graphics::TextureFiltration::Anisotropic:
+    {
+        GLfloat maxAnisotropyLevel {};
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropyLevel);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropyLevel);
+    }
+        break;
+    }
+
     glBindTexture(GL_TEXTURE_2D, 0);
     CheckOpenGLError();
 
@@ -184,31 +250,31 @@ void GraphicsContext::CreateMaterial(Graphics::Material &Material)
 
 void GraphicsContext::ClearRenderBuffers(const hlslpp::float4 &Color)
 {
-    
+
 }
 
 void GraphicsContext::ClearDepthBuffer(float Value)
 {
-    
+
 }
 
 void GraphicsContext::ClearStencilBuffer(uint8_t Value)
 {
-    
+
 }
 
 void GraphicsContext::ClearDepthStencilBuffers(float DepthValue, uint8_t StencilValue)
 {
-    
+
 }
 
 void GraphicsContext::SetRenderBuffer(const Graphics::RenderBuffer &buffer)
 {
-    
+
 }
 void GraphicsContext::Render(Graphics::SwapChain &SwapChain)
 {
-    
+
 }
 
 void GraphicsContext::Upload(Graphics::DrawBatchBase &Batch)
@@ -218,7 +284,7 @@ void GraphicsContext::Upload(Graphics::DrawBatchBase &Batch)
 
 void GraphicsContext::ApplyConstants(Graphics::ShaderMetatype &Constants)
 {
-    
+
 }
 
 void GraphicsContext::SetState(PipelineState &State)
@@ -228,8 +294,16 @@ void GraphicsContext::SetState(PipelineState &State)
 
 void GraphicsContext::Draw(Graphics::Mesh &Mesh, Graphics::DrawBatchBase &Batch)
 {
+    // >5k draw calls is high
+    // >10k draw calls is critical
+
     if (!Mesh.IsCompiled)
     {
+        if (Mesh.Vertices.empty() && !Mesh.SourcePath.empty() && !Mesh.SourceName.empty())
+        {
+            Graphics::AssetLoader::LoadMesh(Mesh);
+        }
+
         CreateMesh(Mesh);
     }
 
@@ -333,6 +407,22 @@ void GraphicsContext::ApplyMaterial(Graphics::Material &Material)
 {
     if (!Material.VertexShader.Data->Handle)
     {
+        if (!Material.SourceShaderPath.empty())
+        {
+            if (Material.VertexShader.SourceCode.empty())
+            {
+                System::Path VertPath = Material.SourceShaderPath;
+                VertPath += ".vert";
+                System::LoadFile(VertPath, Material.VertexShader.SourceCode);
+            }
+
+            if (Material.PixelShader.SourceCode.empty())
+            {
+                System::Path FragPath = Material.SourceShaderPath;
+                FragPath += ".frag";
+                System::LoadFile(FragPath, Material.PixelShader.SourceCode);
+            }
+        }
         CreateMaterial(Material);
     }
 
@@ -366,17 +456,27 @@ void GraphicsContext::ApplyMaterial(Graphics::Material &Material)
     {
         auto &Sampler = Material.TextureSamplers[i];
         glActiveTexture(GL_TEXTURE0 + i);
-        glUniform1i(glGetUniformLocation(CurrentState->Data->Shader, Sampler.Name.data()), 0);
+        glUniform1i(glGetUniformLocation(CurrentState->Data->Shader, Sampler.Name.data()), i);
         GLuint handle = Sampler.Texture->Data->Handle;
         glBindTexture(GL_TEXTURE_2D, handle);
         CheckOpenGLError();
     }
 
-    for (const SharedReference<Graphics::ShaderMetatype> &type : Material.VertexShader.Variables)
+    for (const SharedReference<Graphics::ShaderMetatype> &Variable : Material.VertexShader.Variables)
     {
-        SetShaderVariable(CurrentState->Data->Shader, type->Name, type->TypeID, type->DataPointer);
-        CheckOpenGLError();
+        ApplyShaderVariable(*Variable);
     }
+
+    for (const SharedReference<Graphics::ShaderMetatype> &Variable : Material.PixelShader.Variables)
+    {
+        ApplyShaderVariable(*Variable);
+    }
+}
+
+void GraphicsContext::ApplyShaderVariable(Graphics::ShaderMetatype & Variable)
+{
+    SetShaderVariable(CurrentState->Data->Shader, Variable.Name.data(), Variable.TypeID, Variable.DataPointer);
+    CheckOpenGLError();
 }
 
 void GraphicsContext::InvalidateMaterial(Graphics::Material& material)
@@ -386,7 +486,7 @@ void GraphicsContext::InvalidateMaterial(Graphics::Material& material)
 
 void GraphicsContext::InvalidateTexture(Graphics::Texture& texture)
 {
-    
+
 }
 
 }
