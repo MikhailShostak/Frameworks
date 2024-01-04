@@ -7,14 +7,14 @@ template<typename Type>
 class StaticAsset
 {
 protected:
-    using AssetInitializer = void(*)(Type &instance);
+    using AssetInitializer = std::function<void(Type &instance)>;
     WeakReference<Type> m_Instance;
     AssetInitializer m_Initializer;
 public:
     StaticAsset(AssetInitializer initializer):
         m_Initializer(initializer)
     {
-        
+
     }
 
     SharedReference<Type> Load()
@@ -62,7 +62,7 @@ public:
             object = reinterpret_cast<StaticAsset<Type>*>(it->second.second)->Load();
         }
         return object;
-    }    
+    }
 };
 
 template<typename Type>
